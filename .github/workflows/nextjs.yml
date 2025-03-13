@@ -75,6 +75,12 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+      # Add this step to explicitly copy public folder contents to the out directory
+      - name: Copy public folder to out directory
+        run: |
+          if [ -d "public" ]; then
+            cp -r public/* out/
+          fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
