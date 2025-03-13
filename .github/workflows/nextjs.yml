@@ -78,8 +78,17 @@ jobs:
       # Add this step to explicitly copy public folder contents to the out directory
       - name: Copy public folder to out directory
         run: |
-          if [ -d "public" ]; then
-            cp -r public/* out/
+          if [ -d "public" ] && [ -d "out" ]; then
+            echo "Copying public folder contents to out directory..."
+            cp -r public/* out/ || echo "Copy failed, check directory contents"
+            echo "Contents of public directory:"
+            ls -la public/
+            echo "Contents of out directory after copy:"
+            ls -la out/
+          else
+            echo "Either public or out directory does not exist"
+            echo "Current directory structure:"
+            find . -type d -maxdepth 2 | sort
           fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
