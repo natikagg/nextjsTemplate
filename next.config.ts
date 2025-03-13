@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   },
   // Use these settings for GitHub Pages
   basePath: isProd? `/${repoName}` : '',
+  assetPrefix: isProd? `/${repoName}/` : '',
 };
 
 export default nextConfig;
